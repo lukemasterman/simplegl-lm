@@ -22,6 +22,7 @@
   [self.window.rootViewController setView:view];
   [self.window.rootViewController.view addSubview:_glView];
   [self.window makeKeyAndVisible];
+
     
   return YES;
 }

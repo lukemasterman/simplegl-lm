@@ -43,6 +43,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B9B7DCE6181328E9000E59A8 /* Mug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mug.h; sourceTree = "<group>"; };
 		B9C62DCF180B3B0000408D84 /* HelloOpenGLNonARC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HelloOpenGLNonARC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9C62DD2180B3B0000408D84 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		B9C62DD4180B3B0000408D84 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -109,8 +110,6 @@
 		B9C62DC6180B3B0000408D84 = {
 			isa = PBXGroup;
 			children = (
-				B9C62E22180B3D2300408D84 /* OpenGLES.framework */,
-				B9C62E20180B3D0E00408D84 /* QuartzCore.framework */,
 				B9C62DD8180B3B0000408D84 /* HelloOpenGLNonARC */,
 				B9C62DF6180B3B0200408D84 /* HelloOpenGLNonARCTests */,
 				B9C62DD1180B3B0000408D84 /* Frameworks */,
@@ -131,6 +130,8 @@
 			isa = PBXGroup;
 			children = (
 				B9C62DD2180B3B0000408D84 /* UIKit.framework */,
+				B9C62E22180B3D2300408D84 /* OpenGLES.framework */,
+				B9C62E20180B3D0E00408D84 /* QuartzCore.framework */,
 				B9C62DD4180B3B0000408D84 /* Foundation.framework */,
 				B9C62DD6180B3B0000408D84 /* CoreGraphics.framework */,
 				B9C62DF0180B3B0100408D84 /* SenTestingKit.framework */,
@@ -145,6 +146,7 @@
 				B9C62E08180B3B4A00408D84 /* OpenGLView.m */,
 				B9C62E0A180B3B5F00408D84 /* LKMAppDelegate.h */,
 				B9C62E0B180B3B5F00408D84 /* LKMAppDelegate.m */,
+				B9B7DCE6181328E9000E59A8 /* Mug.h */,
 				B9C62E0D180B3B8100408D84 /* SimpleFragment.glsl */,
 				B9C62E0E180B3B8100408D84 /* SimpleVertex.glsl */,
 				B9C62E11180B3C9700408D84 /* Cocos3DMathLib */,
@@ -494,6 +496,7 @@
 				B9C62E03180B3B0200408D84 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B9C62E04180B3B0200408D84 /* Build configuration list for PBXNativeTarget "HelloOpenGLNonARCTests" */ = {
 			isa = XCConfigurationList;
@@ -502,6 +505,7 @@
 				B9C62E06180B3B0200408D84 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

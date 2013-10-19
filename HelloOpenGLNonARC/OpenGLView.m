@@ -8,6 +8,7 @@
 
 #import "OpenGLView.h"
 #import "CC3GLMatrix.h"
+#import "mug.h"
 
 @implementation OpenGLView
 
@@ -75,25 +76,27 @@
   glUseProgram(programHandle);
   
   _positionSlot = glGetAttribLocation(programHandle, "Position");
-  _colourSlot = glGetAttribLocation(programHandle, "SourceColour");
+  _normals = glGetAttribLocation(programHandle, "Normals");
+  _colourUniform = glGetUniformLocation(programHandle, "SourceColour");
   _projectionUniform = glGetUniformLocation(programHandle, "Projection");
   _modelViewUniform = glGetUniformLocation(programHandle, "ModelView");
+  _lightPosUniform = glGetUniformLocation(programHandle, "LightPosition");
   glEnableVertexAttribArray(_positionSlot);
-  glEnableVertexAttribArray(_colourSlot);
+  glEnableVertexAttribArray(_normals);
 }
 
-- (void)setupVBOs;
-{
-  GLuint vertexBuffer;
-  glGenBuffers(1, &vertexBuffer);
-  glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(Vertices), Vertices, GL_STATIC_DRAW);
-  
-  GLuint indexBuffer;
-  glGenBuffers(1, &indexBuffer);
-  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
-  glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(Indices), Indices, GL_STATIC_DRAW);
-}
+//- (void)setupVBOs;
+//{
+//  GLuint vertexBuffer;
+//  glGenBuffers(1, &vertexBuffer);
+//  glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
+//  glBufferData(GL_ARRAY_BUFFER, sizeof(Vertices), Vertices, GL_STATIC_DRAW);
+//  
+//  GLuint indexBuffer;
+//  glGenBuffers(1, &indexBuffer);
+//  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
+//  glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(Indices), Indices, GL_STATIC_DRAW);
+//}
 
 - (id)initWithFrame:(CGRect)frame;
 {
@@ -101,15 +104,22 @@
   if (self) {
     [self setupLayer];
     [self setupContext];
-   [self setupRenderBuffer];
+    [self setupRenderBuffer];
     [self setupDepthBuffer];
-    
     [self setupFrameBuffer];
     [self compileShaders];
-    [self setupVBOs];
+ //   [self setupVBOs];
     [self setUpDisplayLink];
+    
+    [self setupPanGestureRecognizer];
   }
   return self;
+}
+
+- (void)setupPanGestureRecognizer;
+{
+  UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)];
+  [self addGestureRecognizer:panGesture];
 }
 
 - (void)setupLayer;
@@ -172,31 +182,40 @@
   
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   glEnable(GL_DEPTH_TEST);
+  glEnable(GL_CULL_FACE);
   CC3GLMatrix *projection = [CC3GLMatrix matrix];
   float h = 4.0f * self.frame.size.height / self.frame.size.width;
-  [projection populateFromFrustumLeft:-2
-                             andRight:2
-                            andBottom:-h/2
-                               andTop:h/2
+  [projection populateFromFrustumLeft:-1
+                             andRight:1
+                            andBottom:-h/4
+                               andTop:h/4
                               andNear:4
-                               andFar:14];
+                               andFar:20];
   glUniformMatrix4fv(_projectionUniform, 1, 0, projection.glMatrix);
   
   CC3GLMatrix *modelView = [CC3GLMatrix matrix];
-  [modelView populateFromTranslation:CC3VectorMake(sin(CACurrentMediaTime()), 0, -7)];
-  _currentRotation += displayLink.duration * 90;
-  [modelView rotateBy:CC3VectorMake(_currentRotation, _currentRotation, 2 * _currentRotation)];
+  [modelView populateFromTranslation:CC3VectorMake(0, 0, -5)];
+  _currentRotationY += _translationX;
+  _currentRotationX += _translationY;
+  [modelView rotateBy:CC3VectorMake(-_currentRotationX, _currentRotationY, 0)];
   glUniformMatrix4fv(_modelViewUniform, 1, 0, modelView.glMatrix);
-  
+  glUniform4f(_colourUniform, 1.0, 1.0, 1.0, 1.0);
+  glUniform3f(_lightPosUniform, 1.0, 1.0, -5.0);
   glViewport(0, 0, self.frame.size.width, self.frame.size.height);
   
-  glVertexAttribPointer(_positionSlot, 3, GL_FLOAT, GL_FALSE,
-                        sizeof(Vertex), 0);
-  glVertexAttribPointer(_colourSlot, 4, GL_FLOAT, GL_FALSE,
-                        sizeof(Vertex), (GLvoid*) (sizeof(float) * 3));
+  //glVertexAttribPointer(_positionSlot, 3, GL_FLOAT, GL_FALSE,
+    //                    sizeof(Vertex), 0);
+  //glVertexAttribPointer(_colourSlot, 4, GL_FLOAT, GL_FALSE,
+    //                    sizeof(Vertex), (GLvoid*) (sizeof(float) * 3));
+  glVertexAttribPointer(_positionSlot, 3, GL_FLOAT, GL_FALSE, 0, mugVerts);
+  glVertexAttribPointer(_normals, 3, GL_FLOAT, GL_FALSE, 0, mugNormals);
+//  glVertexPointer(3, GL_FLOAT, 0, 2Verts);
+//  glTexCoordPointer(2, GL_FLOAT, 0, 2TexCoords);
   
-  glDrawElements(GL_TRIANGLES, sizeof(Indices)/sizeof(Indices[0]),
-                 GL_UNSIGNED_BYTE, 0);
+  glDrawArrays(GL_TRIANGLES, 0, mugNumVerts);
+  
+  //glDrawElements(GL_TRIANGLES, sizeof(Indices)/sizeof(Indices[0]),
+          //       GL_UNSIGNED_BYTE, 0);
   
   [_context presentRenderbuffer:GL_RENDERBUFFER];
 }
@@ -206,6 +225,17 @@
   [displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
 }
 
+- (void)handlePan:(UIPanGestureRecognizer *)panGestureRecognizer;
+{
+  CGPoint translation = [panGestureRecognizer translationInView:self];
+  _translationX = translation.x;
+  _translationY = translation.y;
+  [panGestureRecognizer setTranslation:CGPointMake(0, 0) inView:self];
+
+  
+  
+  NSLog(@"%@", NSStringFromCGPoint(translation));
+}
 //Vertex Data
 
 typedef struct
@@ -214,32 +244,55 @@ typedef struct
   float Colour[4];
 } Vertex;
 
-const Vertex Vertices[] =
-{
-  {{1, -1, 0}, {1, 0, 0, 1}},
-  {{1, 1, 0}, {0, 1, 0, 1}},
-  {{-1, 1, 0}, {0, 0, 1, 1}},
-  {{-1, -1, 0}, {1, 0, 1, 1}},
-  {{1, -1, -2}, {1, 0, 0, 1}},
-  {{1, 1, -2}, {0, 1, 0, 1}},
-  {{-1, 1, -2}, {0, 0, 1, 1}},
-  {{-1, -1, -2}, {1, 0, 1, 1}}
-};
-
-const GLubyte Indices[] =
-{
-  0, 1, 2,
-  2, 3, 0,
-  0, 5, 4,
-  0, 5, 1,
-  0, 4, 3,
-  4, 3, 7,
-  4, 6, 5,
-  4, 7, 6,
-  7, 6, 2,
-  2, 3, 7,
-  2, 6, 5,
-  5, 1, 2
-};
+//const Vertex Vertices[] =
+//{
+//  {{1, -1, 1}, {1, 0, 0, 1}},
+//  {{1, 1, 1}, {0, 1, 0, 1}},
+//  {{-1, 1, 1}, {0, 0, 1, 1}},
+//  {{-1, -1, 1}, {1, 0, 1, 1}},
+//  {{1, -1, -1}, {1, 0, 0, 1}},//4
+//  {{1, 1, -1}, {0, 1, 0, 1}},
+//  {{-1, 1, -1}, {0, 0, 1, 1}},
+//  {{-1, -1, -1}, {1, 0, 1, 1}},
+//  {{0, 1, 1}, {1 , 1, 1, 1}},
+//  {{0, 1, -1}, {0 , 0, 0, 1}}, //9
+//  {{0, 2, 0}, {0.5, 0.5, 0.5, 1}},
+//  {{0, -1, 1}, {1, 1, 1, 1}},
+//  {{0, -1, -1}, {0, 0, 0, 1}},
+//  {{0, -2, 0}, {0.5, 0.5, 0.5, 1}},
+//  {{0, 0, 2}, {1, 1, 1, 1}}, //14
+//  {{0, -1, 1}, {0, 0, 0, 1}},
+//  {{0, 0, -2}, {0, 0, 0, 1}},
+//  {{-1, 0, 1}, {1, 1, 1, 1}},
+//  {{-1, 0, -1}, {0, 0, 0, 1}},
+//  {{-2, 0, 0}, {0.5, 0.5, 0.5, 1}},//19
+//  {{1, 0, 1}, {0, 0, 0, 1}},
+//  {{1, 0, -1}, {1, 1, 1, 1}},
+//  {{2, 0, 0}, {0.5, 0.5, 0.5}}
+//};
+//
+//const GLubyte Indices[] =
+//{
+//  0, 1, 2,
+//  2, 3, 0,
+//  0, 5, 4,
+//  0, 5, 1,
+//  0, 4, 3,
+//  4, 3, 7,
+//  4, 6, 5,
+//  4, 7, 6,
+//  7, 6, 2,
+//  2, 3, 7,
+//  2, 6, 5,
+//  5, 1, 2,
+//  8, 9, 10,
+//  11, 12, 13,
+//  8, 14, 15,
+//  16, 9, 12,
+//  17, 18, 19,
+//  20, 21, 22,
+//  15, 20, 14
+//  
+//};
 
 @end

@@ -14,14 +14,17 @@
 @interface OpenGLView : UIView
 {
   GLuint _positionSlot;
-  GLuint _colourSlot;
+  GLuint _normals;
+  GLuint _colourUniform;
   GLuint _projectionUniform;
   GLuint _modelViewUniform;
+  GLuint _lightPosUniform;
   GLuint _colorRenderBuffer;
   GLuint _depthRenderBuffer;
-  GLint _height;
-  GLint _width;
-  GLfloat _currentRotation;
+  GLint _translationX;
+  GLint _translationY;
+  GLfloat _currentRotationX;
+  GLfloat _currentRotationY;
 }
 @property (nonatomic, strong) CAEAGLLayer *eaglLayer;
 @property (nonatomic, strong) EAGLContext *context;
