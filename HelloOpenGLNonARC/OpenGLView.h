@@ -21,6 +21,9 @@
   GLuint _lightPosUniform;
   GLuint _colorRenderBuffer;
   GLuint _depthRenderBuffer;
+  GLuint _texCoordSlot;
+  GLuint _textureUniform;
+  GLuint _texture;
   GLint _translationX;
   GLint _translationY;
   GLfloat _currentRotationX;

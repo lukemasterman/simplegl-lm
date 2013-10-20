@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B9B7DCE918145247000E59A8 /* banana.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B9B7DCE818145246000E59A8 /* banana.jpg */; };
+		B9B7DCEF18147585000E59A8 /* Flames.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B9B7DCEE18147585000E59A8 /* Flames.jpg */; };
 		B9C62DD3180B3B0000408D84 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9C62DD2180B3B0000408D84 /* UIKit.framework */; };
 		B9C62DD5180B3B0000408D84 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9C62DD4180B3B0000408D84 /* Foundation.framework */; };
 		B9C62DD7180B3B0000408D84 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9C62DD6180B3B0000408D84 /* CoreGraphics.framework */; };
@@ -43,7 +45,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		B9B7DCE6181328E9000E59A8 /* Mug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mug.h; sourceTree = "<group>"; };
+		B9B7DCE71813D2D7000E59A8 /* Mug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mug.h; sourceTree = "<group>"; };
+		B9B7DCE818145246000E59A8 /* banana.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = banana.jpg; sourceTree = "<group>"; };
+		B9B7DCEE18147585000E59A8 /* Flames.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Flames.jpg; sourceTree = "<group>"; };
 		B9C62DCF180B3B0000408D84 /* HelloOpenGLNonARC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HelloOpenGLNonARC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9C62DD2180B3B0000408D84 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		B9C62DD4180B3B0000408D84 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -144,9 +148,9 @@
 			children = (
 				B9C62E07180B3B4A00408D84 /* OpenGLView.h */,
 				B9C62E08180B3B4A00408D84 /* OpenGLView.m */,
+				B9B7DCE71813D2D7000E59A8 /* Mug.h */,
 				B9C62E0A180B3B5F00408D84 /* LKMAppDelegate.h */,
 				B9C62E0B180B3B5F00408D84 /* LKMAppDelegate.m */,
-				B9B7DCE6181328E9000E59A8 /* Mug.h */,
 				B9C62E0D180B3B8100408D84 /* SimpleFragment.glsl */,
 				B9C62E0E180B3B8100408D84 /* SimpleVertex.glsl */,
 				B9C62E11180B3C9700408D84 /* Cocos3DMathLib */,
@@ -158,6 +162,8 @@
 		B9C62DD9180B3B0100408D84 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				B9B7DCE818145246000E59A8 /* banana.jpg */,
+				B9B7DCEE18147585000E59A8 /* Flames.jpg */,
 				B9C62DDA180B3B0100408D84 /* HelloOpenGLNonARC-Info.plist */,
 				B9C62DDB180B3B0100408D84 /* InfoPlist.strings */,
 				B9C62DDE180B3B0100408D84 /* main.m */,
@@ -278,9 +284,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				B9C62DDD180B3B0100408D84 /* InfoPlist.strings in Resources */,
+				B9B7DCEF18147585000E59A8 /* Flames.jpg in Resources */,
 				B9C62DE5180B3B0100408D84 /* Default.png in Resources */,
 				B9C62DE7180B3B0100408D84 /* Default@2x.png in Resources */,
 				B9C62DE9180B3B0100408D84 /* Default-568h@2x.png in Resources */,
+				B9B7DCE918145247000E59A8 /* banana.jpg in Resources */,
 				B9C62E0F180B3B8100408D84 /* SimpleFragment.glsl in Resources */,
 				B9C62E10180B3B8100408D84 /* SimpleVertex.glsl in Resources */,
 			);
