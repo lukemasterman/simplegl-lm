@@ -8,7 +8,7 @@
 
 #import "OpenGLView.h"
 #import "CC3GLMatrix.h"
-#import "Mug.h"
+#import "mug2.h"
 
 @implementation OpenGLView
 
@@ -132,7 +132,7 @@
     [self compileShaders];
     [self setUpDisplayLink];
     [self setupPanGestureRecognizer];
-    _texture = [self setupTexture:@"Flames.jpg"];
+    _texture = [self setupTexture:@"cup_layout_with_pics.png"];
   }
   return self;
 }
@@ -216,17 +216,17 @@
 
 - (void)render:(CADisplayLink*)displayLink;
 {
-  //glClearColor(0, 104.0/255.0, 55.0/255.0, 1.0);
+  glClearColor(0, 104.0/255.0, 55.0/255.0, 1.0);
   
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   glEnable(GL_DEPTH_TEST);
   //glEnable(GL_CULL_FACE);
   CC3GLMatrix *projection = [CC3GLMatrix matrix];
   float h = 4.0f * self.frame.size.height / self.frame.size.width;
-  [projection populateFromFrustumLeft:-0.1
-                             andRight:0.1
-                            andBottom:-h/30
-                               andTop:h/30
+  [projection populateFromFrustumLeft:-0.5
+                             andRight:0.5
+                            andBottom:-h/8
+                               andTop:h/8
                               andNear:4
                                andFar:20];
   glUniformMatrix4fv(_projectionUniform, 1, 0, projection.glMatrix);
@@ -238,18 +238,18 @@
   [modelView rotateBy:CC3VectorMake(-_currentRotationX, _currentRotationY, 0)];
   glUniformMatrix4fv(_modelViewUniform, 1, 0, modelView.glMatrix);
   glUniform4f(_colourUniform, 1.0, 0.0, 0.0, 1.0);
-  glUniform3f(_lightPosUniform, 1.0, 1.0, -5.0);
+  glUniform3f(_lightPosUniform, 2.0, 2.0, -4.0);
   glViewport(0, 0, self.frame.size.width, self.frame.size.height);
   
-  glVertexAttribPointer(_positionSlot, 3, GL_FLOAT, GL_FALSE, 0, MugVerts);
-  glVertexAttribPointer(_normals, 3, GL_FLOAT, GL_FALSE, 0, MugNormals);
-  glVertexAttribPointer(_texCoordSlot, 2, GL_FLOAT, GL_FALSE, 0, MugTexCoords);
+  glVertexAttribPointer(_positionSlot, 3, GL_FLOAT, GL_FALSE, 0, mug2Verts);
+  glVertexAttribPointer(_normals, 3, GL_FLOAT, GL_FALSE, 0, mug2Normals);
+  glVertexAttribPointer(_texCoordSlot, 2, GL_FLOAT, GL_FALSE, 0, mug2TexCoords);
   
   glActiveTexture(GL_TEXTURE0);
   glBindTexture(GL_TEXTURE_2D, _texture);
   glUniform1i(_textureUniform, 0);
   
-  glDrawArrays(GL_TRIANGLES, 0, MugNumVerts);
+  glDrawArrays(GL_TRIANGLES, 0, mug2NumVerts);
   
   [_context presentRenderbuffer:GL_RENDERBUFFER];
 }
