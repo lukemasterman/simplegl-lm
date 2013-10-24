@@ -44,7 +44,7 @@
   if (compileSuccess == GL_FALSE) {
     GLchar messages[256];
     glGetShaderInfoLog(shaderHandle, sizeof(messages), 0, &messages[0]);
-    NSString *messageString = [NSString stringWithUTF8String:messages];
+    NSString *messageString = @(messages);
     NSLog(@"%@", messageString);
     exit(1);
   }
@@ -67,7 +67,7 @@
   if (linkSuccess == GL_FALSE) {
     GLchar messages[256];
     glGetProgramInfoLog(programHandle, sizeof(messages), 0, &messages[0]);
-    NSString *messageString = [NSString stringWithUTF8String:messages];
+    NSString *messageString = @(messages);
     NSLog(@"%@", messageString);
     exit(1);
   }
