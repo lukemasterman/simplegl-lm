@@ -14,11 +14,11 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
   CGRect screenBounds = [[UIScreen mainScreen] bounds];
-  self.window = [[[UIWindow alloc] initWithFrame:screenBounds] autorelease];
-  UIViewController* viewController = [[[UIViewController alloc] init] autorelease];
+  self.window = [[UIWindow alloc] initWithFrame:screenBounds];
+  UIViewController* viewController = [[UIViewController alloc] init];
   self.window.rootViewController = viewController;
-  UIView *view = [[[UIView alloc] init] autorelease];
-  _glView = [[[OpenGLView alloc]initWithFrame:screenBounds] autorelease];
+  UIView *view = [[UIView alloc] init];
+  _glView = [[OpenGLView alloc]initWithFrame:screenBounds];
   [self.window.rootViewController setView:view];
   [self.window.rootViewController.view addSubview:_glView];
   [self.window makeKeyAndVisible];
@@ -27,10 +27,5 @@
   return YES;
 }
 
-- (void)dealloc;
-{
-  [_glView release];
-  [super dealloc];
-}
 
 @end

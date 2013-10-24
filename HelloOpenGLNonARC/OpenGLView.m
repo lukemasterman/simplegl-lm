@@ -12,17 +12,15 @@
 
 @implementation OpenGLView
 
+
+@synthesize context = _context;
+@synthesize eaglLayer = _eaglLayer;
+
 + (Class)layerClass;
 {
     return [CAEAGLLayer class];
 }
 
-- (void)dealloc;
-{
-  [_context release];
-  _context = nil;
-  [super dealloc];
-}
 
 - (GLuint)compileShader:(NSString*)shaderName withType:(GLenum)shaderType;
 {
