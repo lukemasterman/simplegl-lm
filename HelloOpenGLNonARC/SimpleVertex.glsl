@@ -17,7 +17,7 @@ void main(void) {
   float Distance = length(LightPosition - ModelViewVertex);
   vec3 LightVector = normalize(LightPosition - ModelViewVertex);
   float Diffuse = max(dot(ModelViewNormal, LightVector), 0.1);
-  Diffuse = Diffuse * (1.0/ (0.05 * Distance * Distance));
+  Diffuse = Diffuse * (1.0/ (0.2 * Distance * Distance));
   DestinationColour = SourceColour * Diffuse;
   Diffusion = vec4 (1.0) * Diffuse;
   TexCoordOut = TexCoordIn;

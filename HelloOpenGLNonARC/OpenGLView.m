@@ -8,17 +8,70 @@
 
 #import "OpenGLView.h"
 #import "CC3GLMatrix.h"
-#import "mug2.h"
+#import "mug.h"
 
-@implementation OpenGLView
+@interface OpenGLView ()
 
+@property (nonatomic, strong) CAEAGLLayer *eaglLayer;
+@property (nonatomic, strong) EAGLContext *context;
 
-@synthesize context = _context;
-@synthesize eaglLayer = _eaglLayer;
+@end
+
+@implementation OpenGLView {
+  GLuint _positionSlot;
+  GLuint _normals;
+  GLuint _colourUniform;
+  GLuint _projectionUniform;
+  GLuint _modelViewUniform;
+  GLuint _lightPosUniform;
+  GLuint _colorRenderBuffer;
+  GLuint _depthRenderBuffer;
+  GLuint _texCoordSlot;
+  GLuint _textureUniform;
+  GLuint _texture;
+  GLint _translationX;
+  GLint _translationY;
+  GLfloat _currentRotationX;
+  GLfloat _currentRotationY;
+}
 
 + (Class)layerClass;
 {
     return [CAEAGLLayer class];
+}
+
+- (id)initWithFrame:(CGRect)frame;
+{
+  self = [super initWithFrame:frame];
+  if (self) {
+    [self setupLayer];
+    [self setupContext];
+    [self setupRenderBuffer];
+    [self setupDepthBuffer];
+    [self setupFrameBuffer];
+    [self compileShaders];
+    [self setUpDisplayLink];
+    [self setupPanGestureRecognizer];
+    _texture = [self setupTexture:@"mug_texture_map_test_soph.png"];
+  }
+  return self;
+}
+
+- (id)initWithFrame:(CGRect)frame andTexture:(NSString*)texture;
+{
+  self = [super initWithFrame:frame];
+  if (self) {
+    [self setupLayer];
+    [self setupContext];
+    [self setupRenderBuffer];
+    [self setupDepthBuffer];
+    [self setupFrameBuffer];
+    [self compileShaders];
+    [self setUpDisplayLink];
+    [self setupPanGestureRecognizer];
+    _texture = [self setupTexture:texture];
+  }
+  return self;
 }
 
 
@@ -51,12 +104,11 @@
   return shaderHandle;
 }
 
-- (void)compileShaders {
-  GLuint vertexShader = [self compileShader:@"SimpleVertex"
-                                   withType:GL_VERTEX_SHADER];
-  GLuint fragmentShader = [self compileShader:@"SimpleFragment"
-                                     withType:GL_FRAGMENT_SHADER];
-  
+- (void)compileShaders;
+{
+  GLuint vertexShader   = [self compileShader:@"SimpleVertex"   withType:GL_VERTEX_SHADER];
+  GLuint fragmentShader = [self compileShader:@"SimpleFragment" withType:GL_FRAGMENT_SHADER];
+
   GLuint programHandle = glCreateProgram();
   glAttachShader(programHandle, vertexShader);
   glAttachShader(programHandle, fragmentShader);
@@ -118,39 +170,7 @@
   return texName;
 }
 
-- (id)initWithFrame:(CGRect)frame;
-{
-  self = [super initWithFrame:frame];
-  if (self) {
-    [self setupLayer];
-    [self setupContext];
-    [self setupRenderBuffer];
-    [self setupDepthBuffer];
-    [self setupFrameBuffer];
-    [self compileShaders];
-    [self setUpDisplayLink];
-    [self setupPanGestureRecognizer];
-    _texture = [self setupTexture:@"cup_layout_with_pics.png"];
-  }
-  return self;
-}
 
-- (id)initWithFrame:(CGRect)frame andTexture:(NSString*)texture;
-{
-  self = [super initWithFrame:frame];
-  if (self) {
-    [self setupLayer];
-    [self setupContext];
-    [self setupRenderBuffer];
-    [self setupDepthBuffer];
-    [self setupFrameBuffer];
-    [self compileShaders];
-    [self setUpDisplayLink];
-    [self setupPanGestureRecognizer];
-    _texture = [self setupTexture:texture];
-  }
-  return self;
-}
 
 - (void)setupPanGestureRecognizer;
 {
@@ -166,8 +186,7 @@
 
 - (void)setupContext;
 {
-  EAGLRenderingAPI api = kEAGLRenderingAPIOpenGLES2;
-  _context = [[EAGLContext alloc] initWithAPI:api];
+  _context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
   if (!_context) {
       NSLog(@"Failed to initialise OpenGL ES 2.0 Context");
       exit(1);
@@ -236,18 +255,18 @@
   [modelView rotateBy:CC3VectorMake(-_currentRotationX, _currentRotationY, 0)];
   glUniformMatrix4fv(_modelViewUniform, 1, 0, modelView.glMatrix);
   glUniform4f(_colourUniform, 1.0, 0.0, 0.0, 1.0);
-  glUniform3f(_lightPosUniform, 2.0, 2.0, -4.0);
+  glUniform3f(_lightPosUniform, 1.0, 1.0, -5.0);
   glViewport(0, 0, self.frame.size.width, self.frame.size.height);
   
-  glVertexAttribPointer(_positionSlot, 3, GL_FLOAT, GL_FALSE, 0, mug2Verts);
-  glVertexAttribPointer(_normals, 3, GL_FLOAT, GL_FALSE, 0, mug2Normals);
-  glVertexAttribPointer(_texCoordSlot, 2, GL_FLOAT, GL_FALSE, 0, mug2TexCoords);
+  glVertexAttribPointer(_positionSlot, 3, GL_FLOAT, GL_FALSE, 0, mugVerts);
+  glVertexAttribPointer(_normals, 3, GL_FLOAT, GL_FALSE, 0, mugNormals);
+  glVertexAttribPointer(_texCoordSlot, 2, GL_FLOAT, GL_FALSE, 0, mugTexCoords);
   
   glActiveTexture(GL_TEXTURE0);
   glBindTexture(GL_TEXTURE_2D, _texture);
   glUniform1i(_textureUniform, 0);
   
-  glDrawArrays(GL_TRIANGLES, 0, mug2NumVerts);
+  glDrawArrays(GL_TRIANGLES, 0, mugNumVerts);
   
   [_context presentRenderbuffer:GL_RENDERBUFFER];
 }

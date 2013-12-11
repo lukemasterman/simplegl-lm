@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B9175F18181D252C00C8AC3A /* mug_texture_map_test_soph.png in Resources */ = {isa = PBXBuildFile; fileRef = B9175F17181D252C00C8AC3A /* mug_texture_map_test_soph.png */; };
 		B9C62DD3180B3B0000408D84 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9C62DD2180B3B0000408D84 /* UIKit.framework */; };
 		B9C62DD5180B3B0000408D84 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9C62DD4180B3B0000408D84 /* Foundation.framework */; };
 		B9C62DD7180B3B0000408D84 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9C62DD6180B3B0000408D84 /* CoreGraphics.framework */; };
@@ -30,7 +31,11 @@
 		B9C62E21180B3D0E00408D84 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9C62E20180B3D0E00408D84 /* QuartzCore.framework */; };
 		B9C62E23180B3D2300408D84 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9C62E22180B3D2300408D84 /* OpenGLES.framework */; };
 		B9C62E24180B3D9000408D84 /* OpenGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = B9C62E08180B3B4A00408D84 /* OpenGLView.m */; };
-		B9FC73CC18171B02003B7F9C /* cup_layout_with_pics.png in Resources */ = {isa = PBXBuildFile; fileRef = B9FC73CB18171B02003B7F9C /* cup_layout_with_pics.png */; };
+		B9F1ADBA181C3D3D001E5B0F /* mug_texture_map_test_ste.png in Resources */ = {isa = PBXBuildFile; fileRef = B9F1ADB9181C3D3D001E5B0F /* mug_texture_map_test_ste.png */; };
+		B9FC73D318199B23003B7F9C /* LKMViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9FC73D218199B23003B7F9C /* LKMViewController.m */; };
+		B9FC73D518199B46003B7F9C /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9FC73D418199B46003B7F9C /* GLKit.framework */; };
+		B9FC73D818199D9E003B7F9C /* GLProgram.m in Sources */ = {isa = PBXBuildFile; fileRef = B9FC73D718199D9E003B7F9C /* GLProgram.m */; };
+		B9FC74181819D531003B7F9C /* mug_texture_map_test.png in Resources */ = {isa = PBXBuildFile; fileRef = B9FC74171819D531003B7F9C /* mug_texture_map_test.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +49,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B9175F17181D252C00C8AC3A /* mug_texture_map_test_soph.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mug_texture_map_test_soph.png; sourceTree = "<group>"; };
 		B9C62DCF180B3B0000408D84 /* HelloOpenGLNonARC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HelloOpenGLNonARC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9C62DD2180B3B0000408D84 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		B9C62DD4180B3B0000408D84 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -79,8 +85,14 @@
 		B9C62E1B180B3C9700408D84 /* ccTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ccTypes.h; sourceTree = "<group>"; };
 		B9C62E20180B3D0E00408D84 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		B9C62E22180B3D2300408D84 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
-		B9FC73C618171420003B7F9C /* mug2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mug2.h; sourceTree = "<group>"; };
-		B9FC73CB18171B02003B7F9C /* cup_layout_with_pics.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cup_layout_with_pics.png; sourceTree = "<group>"; };
+		B9F1ADB9181C3D3D001E5B0F /* mug_texture_map_test_ste.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mug_texture_map_test_ste.png; sourceTree = "<group>"; };
+		B9FC73D118199B23003B7F9C /* LKMViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LKMViewController.h; path = HelloOpenGLNonARC/ViewControllers/LKMViewController.h; sourceTree = "<group>"; };
+		B9FC73D218199B23003B7F9C /* LKMViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LKMViewController.m; path = HelloOpenGLNonARC/ViewControllers/LKMViewController.m; sourceTree = "<group>"; };
+		B9FC73D418199B46003B7F9C /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		B9FC73D618199D9E003B7F9C /* GLProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GLProgram.h; path = Models/GLProgram.h; sourceTree = "<group>"; };
+		B9FC73D718199D9E003B7F9C /* GLProgram.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GLProgram.m; path = Models/GLProgram.m; sourceTree = "<group>"; };
+		B9FC74161819D3B4003B7F9C /* mug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mug.h; sourceTree = "<group>"; };
+		B9FC74171819D531003B7F9C /* mug_texture_map_test.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mug_texture_map_test.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +100,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B9FC73D518199B46003B7F9C /* GLKit.framework in Frameworks */,
 				B9C62E23180B3D2300408D84 /* OpenGLES.framework in Frameworks */,
 				B9C62E21180B3D0E00408D84 /* QuartzCore.framework in Frameworks */,
 				B9C62DD3180B3B0000408D84 /* UIKit.framework in Frameworks */,
@@ -112,6 +125,8 @@
 		B9C62DC6180B3B0000408D84 = {
 			isa = PBXGroup;
 			children = (
+				B9FC73D118199B23003B7F9C /* LKMViewController.h */,
+				B9FC73D218199B23003B7F9C /* LKMViewController.m */,
 				B9C62DD8180B3B0000408D84 /* HelloOpenGLNonARC */,
 				B9C62DF6180B3B0200408D84 /* HelloOpenGLNonARCTests */,
 				B9C62DD1180B3B0000408D84 /* Frameworks */,
@@ -131,6 +146,7 @@
 		B9C62DD1180B3B0000408D84 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B9FC73D418199B46003B7F9C /* GLKit.framework */,
 				B9C62DD2180B3B0000408D84 /* UIKit.framework */,
 				B9C62E22180B3D2300408D84 /* OpenGLES.framework */,
 				B9C62E20180B3D0E00408D84 /* QuartzCore.framework */,
@@ -146,7 +162,9 @@
 			children = (
 				B9C62E07180B3B4A00408D84 /* OpenGLView.h */,
 				B9C62E08180B3B4A00408D84 /* OpenGLView.m */,
-				B9FC73C618171420003B7F9C /* mug2.h */,
+				B9FC74161819D3B4003B7F9C /* mug.h */,
+				B9FC73D618199D9E003B7F9C /* GLProgram.h */,
+				B9FC73D718199D9E003B7F9C /* GLProgram.m */,
 				B9C62E0A180B3B5F00408D84 /* LKMAppDelegate.h */,
 				B9C62E0B180B3B5F00408D84 /* LKMAppDelegate.m */,
 				B9C62E0D180B3B8100408D84 /* SimpleFragment.glsl */,
@@ -160,7 +178,9 @@
 		B9C62DD9180B3B0100408D84 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				B9FC73CB18171B02003B7F9C /* cup_layout_with_pics.png */,
+				B9F1ADB9181C3D3D001E5B0F /* mug_texture_map_test_ste.png */,
+				B9175F17181D252C00C8AC3A /* mug_texture_map_test_soph.png */,
+				B9FC74171819D531003B7F9C /* mug_texture_map_test.png */,
 				B9C62DDA180B3B0100408D84 /* HelloOpenGLNonARC-Info.plist */,
 				B9C62DDB180B3B0100408D84 /* InfoPlist.strings */,
 				B9C62DDE180B3B0100408D84 /* main.m */,
@@ -281,12 +301,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				B9C62DDD180B3B0100408D84 /* InfoPlist.strings in Resources */,
+				B9FC74181819D531003B7F9C /* mug_texture_map_test.png in Resources */,
 				B9C62DE5180B3B0100408D84 /* Default.png in Resources */,
 				B9C62DE7180B3B0100408D84 /* Default@2x.png in Resources */,
 				B9C62DE9180B3B0100408D84 /* Default-568h@2x.png in Resources */,
-				B9FC73CC18171B02003B7F9C /* cup_layout_with_pics.png in Resources */,
 				B9C62E0F180B3B8100408D84 /* SimpleFragment.glsl in Resources */,
+				B9175F18181D252C00C8AC3A /* mug_texture_map_test_soph.png in Resources */,
 				B9C62E10180B3B8100408D84 /* SimpleVertex.glsl in Resources */,
+				B9F1ADBA181C3D3D001E5B0F /* mug_texture_map_test_ste.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -322,9 +344,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				B9C62DDF180B3B0100408D84 /* main.m in Sources */,
+				B9FC73D318199B23003B7F9C /* LKMViewController.m in Sources */,
 				B9C62E0C180B3B5F00408D84 /* LKMAppDelegate.m in Sources */,
 				B9C62E1C180B3C9700408D84 /* CC3Foundation.m in Sources */,
 				B9C62E1D180B3C9700408D84 /* CC3GLMatrix.m in Sources */,
+				B9FC73D818199D9E003B7F9C /* GLProgram.m in Sources */,
 				B9C62E1E180B3C9700408D84 /* CC3Kazmath.c in Sources */,
 				B9C62E1F180B3C9700408D84 /* CC3Math.m in Sources */,
 				B9C62E24180B3D9000408D84 /* OpenGLView.m in Sources */,
